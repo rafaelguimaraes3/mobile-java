@@ -35,6 +35,9 @@
                 android:value="br.com.mobile.segundaprova.vendafacil.activity.AnunciosActivity" />
         </activity>
         <activity android:name=".activity.CadastrarAnuncioActivity" />
+        <activity
+            android:name="br.com.mobile.segundaprova.vendafacil.activity.DetalhesProdutoActivity"
+            android:parentActivityName="br.com.mobile.segundaprova.vendafacil.activity.AnunciosActivity" />
     </application>
 
 </manifest>

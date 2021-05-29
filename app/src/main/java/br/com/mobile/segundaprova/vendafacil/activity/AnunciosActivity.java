@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -29,6 +30,7 @@ import java.util.List;
 import br.com.mobile.segundaprova.vendafacil.R;
 import br.com.mobile.segundaprova.vendafacil.adapter.AdapterAnuncios;
 import br.com.mobile.segundaprova.vendafacil.helper.ConfiguracaoFirebase;
+import br.com.mobile.segundaprova.vendafacil.helper.RecyclerItemClickListener;
 import br.com.mobile.segundaprova.vendafacil.model.Anuncio;
 import dmax.dialog.SpotsDialog;
 
@@ -63,10 +65,32 @@ public class AnunciosActivity extends AppCompatActivity {
         adapterAnuncios = new AdapterAnuncios(listaAnuncios, this);
         recyclerAnunciosPublicos.setAdapter( adapterAnuncios );
 
-        //Configurações iniciais
-        autenticacao = ConfiguracaoFirebase.getFirebaseAutenticacao();
-
         recuperarAnunciosPublicos();
+
+        //Aplicar evento de clique
+        recyclerAnunciosPublicos.addOnItemTouchListener(
+                new RecyclerItemClickListener(
+                        this,
+                        recyclerAnunciosPublicos,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                                Anuncio anuncioSelecionado = listaAnuncios.get( position );
+                                Intent i = new Intent(AnunciosActivity.this, DetalhesProdutoActivity.class);
+                                i.putExtra("anuncioSelecionado", anuncioSelecionado );
+                                startActivity( i );
+                            }
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+                            }
+
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            }
+                        }
+                )
+        );
     }
 
     public void filtrarPorEstado(View view){
