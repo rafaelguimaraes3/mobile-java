@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.View;
+import android.widget.AdapterView;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -25,6 +26,7 @@ import java.util.List;
 import br.com.mobile.segundaprova.vendafacil.R;
 import br.com.mobile.segundaprova.vendafacil.adapter.AdapterAnuncios;
 import br.com.mobile.segundaprova.vendafacil.helper.ConfiguracaoFirebase;
+import br.com.mobile.segundaprova.vendafacil.helper.RecyclerItemClickListener;
 import br.com.mobile.segundaprova.vendafacil.model.Anuncio;
 import dmax.dialog.SpotsDialog;
 
@@ -68,6 +70,30 @@ public class MeusAnunciosActivity extends AppCompatActivity {
 
         //Recupera anúncios para o usuário
         recuperarAnuncios();
+
+        //Adiciona evento de clique no recyclerview
+        recyclerAnuncios.addOnItemTouchListener(
+                new RecyclerItemClickListener(
+                        this,
+                        recyclerAnuncios,
+                        new RecyclerItemClickListener.OnItemClickListener() {
+                            @Override
+                            public void onItemClick(View view, int position) {
+                            }
+
+                            @Override
+                            public void onLongItemClick(View view, int position) {
+                                Anuncio anuncioSelecionado = anuncios.get(position);
+                                anuncioSelecionado.remover();
+                                adapterAnuncios.notifyDataSetChanged();
+                            }
+
+                            @Override
+                            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            }
+                        }
+                )
+        );
     }
 
     private void recuperarAnuncios(){
