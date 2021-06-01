@@ -3,21 +3,19 @@ package br.com.mobile.segundaprova.vendafacil.activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.ValueEventListener;
+import android.view.View;
+import android.widget.AdapterView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
-import android.widget.AdapterView;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,6 +77,11 @@ public class MeusAnunciosActivity extends AppCompatActivity {
                         new RecyclerItemClickListener.OnItemClickListener() {
                             @Override
                             public void onItemClick(View view, int position) {
+                                Anuncio anuncioSelecionado = anuncios.get( position );
+                                anuncioSelecionado.setCanUpdate(true);
+                                Intent i = new Intent(MeusAnunciosActivity.this, DetalhesProdutoActivity.class);
+                                i.putExtra("anuncioSelecionado", anuncioSelecionado );
+                                startActivity( i );
                             }
 
                             @Override

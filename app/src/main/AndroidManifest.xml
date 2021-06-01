@@ -5,7 +5,7 @@
     <!-- Permissoes internet -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
+     
     <!-- Permissoes galeria / camera -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
@@ -26,9 +26,9 @@
         </activity>
         <activity android:name=".activity.CadastroActivity" />
         <activity
-            android:name="br.com.mobile.segundaprova.vendafacil.activity.MeusAnunciosActivity"
+            android:name=".activity.MeusAnunciosActivity"
             android:label="@string/title_activity_meus_anuncios"
-            android:parentActivityName="br.com.mobile.segundaprova.vendafacil.activity.AnunciosActivity"
+            android:parentActivityName=".activity.AnunciosActivity"
             android:theme="@style/Theme.VendaFacil.NoActionBar">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -36,8 +36,9 @@
         </activity>
         <activity android:name=".activity.CadastrarAnuncioActivity" />
         <activity
-            android:name="br.com.mobile.segundaprova.vendafacil.activity.DetalhesProdutoActivity"
-            android:parentActivityName="br.com.mobile.segundaprova.vendafacil.activity.AnunciosActivity" />
+            android:name=".activity.DetalhesProdutoActivity"
+            android:parentActivityName=".activity.AnunciosActivity" />
+        <activity android:name=".activity.EditarAnuncioActivity" />
     </application>
 
 </manifest>

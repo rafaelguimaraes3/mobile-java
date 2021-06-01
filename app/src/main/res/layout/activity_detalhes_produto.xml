@@ -51,9 +51,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
         android:layout_marginRight="8dp"
-        android:drawableLeft="@drawable/ic_local_24dp"
         android:padding="8dp"
-        android:text="SP" />
+        android:text="SP"
+        app:drawableLeftCompat="@drawable/ic_local_24dp" />
 
     <View
         android:layout_width="match_parent"
@@ -71,13 +71,23 @@
         android:paddingTop="8dp"
         android:text="Descricao" />
 
-    <Button
-        android:id="@+id/button7"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
-        android:onClick="visualizarTelefone"
-        android:text="Ver telefone" />
+        <Button
+            android:id="@+id/buttonVerTelefone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:onClick="visualizarTelefone"
+            android:text="Ver telefone" />
+
+        <Button
+            android:id="@+id/buttonEditarAnuncio"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginRight="8dp"
+            android:onClick="editarAnuncio"
+            android:visibility="gone"
+            android:text="Editar" />
 
 </LinearLayout>

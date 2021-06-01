@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
     private TextView estado;
     private TextView preco;
     private Anuncio anuncioSelecionado;
+    private Button editarAnuncio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,7 +35,6 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
         //Configurar toolbar
         getSupportActionBar().setTitle("Detalhe produto");
 
-        //Incializar componentes de interface
         inicializarComponentes();
 
         //Recupera anúncio para exibicao
@@ -55,6 +56,9 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
 
             carouselView.setPageCount( anuncioSelecionado.getFotos().size() );
             carouselView.setImageListener( imageListener );
+
+            if (anuncioSelecionado.isCanUpdate())
+                habilitarButtonEditarAnuncio();
         }
     }
 
@@ -63,11 +67,22 @@ public class DetalhesProdutoActivity extends AppCompatActivity {
         startActivity( i );
     }
 
+    public void editarAnuncio(View view) {
+        Intent i = new Intent(getApplicationContext(), EditarAnuncioActivity.class);
+        i.putExtra("anuncioSelecionado", anuncioSelecionado );
+        startActivity(i);
+    }
+
+    private void habilitarButtonEditarAnuncio() {
+        editarAnuncio.setVisibility(View.VISIBLE);
+    }
+
     private void inicializarComponentes(){
         carouselView = findViewById(R.id.carouselView);
         titulo = findViewById(R.id.textTituloDetalhe);
         descricao = findViewById(R.id.textDescricaoDetalhe);
         estado = findViewById(R.id.textEstadoDetalhe);
         preco = findViewById(R.id.textPrecoDetalhe);
+        editarAnuncio = findViewById(R.id.buttonEditarAnuncio);
     }
 }
