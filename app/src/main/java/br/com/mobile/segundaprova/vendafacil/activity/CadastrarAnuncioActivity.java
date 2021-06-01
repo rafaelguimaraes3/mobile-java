@@ -6,6 +6,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -17,9 +18,11 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 
 import com.blackcat.currencyedittext.CurrencyEditText;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -42,7 +45,7 @@ import dmax.dialog.SpotsDialog;
 
 public class CadastrarAnuncioActivity extends AppCompatActivity
             implements View.OnClickListener {
-
+    imageCadastro1 imageViewFoto;
     private EditText campoTitulo, campoDescricao;
     private ImageView imagem1, imagem2, imagem3;
     private Spinner campoEstado, campoCategoria;
@@ -51,6 +54,7 @@ public class CadastrarAnuncioActivity extends AppCompatActivity
     private Anuncio anuncio;
     private StorageReference storage;
     private AlertDialog dialog;
+
 
     private String[] permissoes = new String[]{
             Manifest.permission.READ_EXTERNAL_STORAGE,
@@ -70,9 +74,36 @@ public class CadastrarAnuncioActivity extends AppCompatActivity
         //Validar permissões
         Permissoes.validarPermissoes(permissoes, this, 1);
 
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CAMERA)!= PackageManager.PERMISSION_GRANTED){
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CAMERA}, 0);
+        }
+
+        imageViewFoto = (ImageView) findViewById(R.id.imageView);
+        findViewById(R.id.button).setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                tirarFoto();
+            }
+        });
+
+
         inicializarComponentes();
         carregarDadosSpinner();
     }
+    public void tirarFoto(){
+        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        startActivityForResult (intent, 1);
+    }
+    @Override
+    protected void onActivityResult (int requestCode, int resultCode, Intent data){
+        if (requestCode == 1 && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imagem = (Bitmap)extras.get("data");
+            imageViewFoto.setImagemBitmap (imagem);
+        }
+        super.onActivityResult(requestCode,resultCode, data);
+    }
+
 
     public void salvarAnuncio(){
 
